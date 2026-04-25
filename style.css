@@ -160,6 +160,57 @@ section { margin-top: 72px; }
 
 .muted { color: var(--muted); font-size: 15px; }
 
+/* Local-install feature section (open-source path) */
+.install-local-feature h2 {
+  font-size: 28px;
+  margin: 12px 0 14px;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  line-height: 1.15;
+}
+.install-local-feature .muted {
+  margin-bottom: 24px;
+}
+.install-local-feature em {
+  font-style: italic;
+  color: var(--text);
+}
+
+.local-cmds {
+  margin-top: 24px;
+}
+.local-cmds .cmd-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  margin-top: 18px;
+  letter-spacing: -0.01em;
+}
+.local-cmds .cmd-label:first-child {
+  margin-top: 0;
+}
+.local-cmds pre {
+  background: var(--code-bg);
+  border-radius: 10px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  margin: 0;
+}
+.local-cmds pre code {
+  color: var(--code-text);
+  font-family: "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  white-space: nowrap;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+.small-note {
+  font-size: 14px !important;
+  margin-top: 16px;
+}
+
 /* Agents feature section */
 .agents-feature h2 {
   font-size: 30px;
