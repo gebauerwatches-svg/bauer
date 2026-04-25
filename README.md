@@ -34,10 +34,14 @@ When you run the installer, Bauer:
 | 🏪 | **Small business owner** | Tuned for customer comms, proposals/quotes, and marketing copy |
 | 🚀 | **Side project runner** | Tuned for drafting content, launch copy, and "what should I ship next?" |
 
-Both personas ship with the same 4 skills:
+Each persona ships 4 skills — 3 role-specific + a shared meta-skill:
 
-- `[role-skill-1]`, `[role-skill-2]`, `[role-skill-3]` — daily-task helpers tuned for the persona
-- `build-agent` — walks you through designing a custom agent in plain English (purpose → access → model → guardrails → file)
+| Persona | Role-specific skills | Meta-skill |
+|---|---|---|
+| Small business owner | `customer-message`, `proposal-or-quote`, `marketing-copy` | `build-agent` |
+| Side project runner | `draft-content`, `launch-copy`, `scope-and-prioritize` | `build-agent` |
+
+`build-agent` walks you through designing a custom agent in plain English — purpose, access, model choice (closed-source vs. open-source local), risks, guardrails — then writes the skill file for you.
 
 ## What you'll need
 
