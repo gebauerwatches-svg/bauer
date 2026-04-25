@@ -49,17 +49,19 @@ fi
 # --- Pick persona ---
 say "✨  Which best describes you?"
 blank
-say "    1) Small business owner  -  customer comms, proposals, marketing copy"
-say "    2) Side project runner   -  content, launches, scope discipline"
+say "    1) Small business owner   -  customer comms, proposals, marketing copy"
+say "    2) Side project runner    -  content, launches, scope discipline"
+say "    3) Freelancer/consultant  -  client updates, scoping, scope-creep responses"
 blank
 
 persona=""
 while [ -z "$persona" ]; do
-    read -r -p "  Pick a number (1 or 2): " choice
+    read -r -p "  Pick a number (1, 2, or 3): " choice
     case "$choice" in
         1) persona="business-owner"; persona_label="Small business owner" ;;
         2) persona="side-project";   persona_label="Side project runner" ;;
-        *) say "Please type 1 or 2." ;;
+        3) persona="freelancer";     persona_label="Freelancer/consultant" ;;
+        *) say "Please type 1, 2, or 3." ;;
     esac
 done
 
@@ -70,6 +72,7 @@ say "⚡  Setting up the '$persona_label' personality..."
 case "$persona" in
     business-owner) skills=(customer-message proposal-or-quote marketing-copy build-agent) ;;
     side-project)   skills=(draft-content launch-copy scope-and-prioritize build-agent) ;;
+    freelancer)     skills=(client-update scope-and-estimate scope-creep-response build-agent) ;;
 esac
 
 # --- Destination ---
@@ -130,5 +133,7 @@ case "$persona" in
         say "    \"Help me draft a follow-up email to a lead I haven't heard back from in two weeks.\"" ;;
     side-project)
         say "    \"I have 3 hours this Saturday. What's the smallest useful thing I should ship?\"" ;;
+    freelancer)
+        say "    \"Draft this week's status update for [client]. Notes: shipped the homepage, blocked on copy approval.\"" ;;
 esac
 blank

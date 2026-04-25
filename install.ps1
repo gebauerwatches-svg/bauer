@@ -46,18 +46,20 @@ if (-not (Get-Command claude -ErrorAction SilentlyContinue)) {
 # --- Pick persona ---
 Write-Say "✨  Which best describes you?"
 Write-Host ""
-Write-Say "    1) Small business owner  -  customer comms, proposals, marketing copy"
-Write-Say "    2) Side project runner   -  content, launches, scope discipline"
+Write-Say "    1) Small business owner   -  customer comms, proposals, marketing copy"
+Write-Say "    2) Side project runner    -  content, launches, scope discipline"
+Write-Say "    3) Freelancer/consultant  -  client updates, scoping, scope-creep responses"
 Write-Host ""
 
 $persona = $null
 $personaLabel = $null
 while (-not $persona) {
-    $choice = Read-Host "  Pick a number (1 or 2)"
+    $choice = Read-Host "  Pick a number (1, 2, or 3)"
     switch ($choice) {
         "1" { $persona = "business-owner"; $personaLabel = "Small business owner" }
         "2" { $persona = "side-project";   $personaLabel = "Side project runner" }
-        default { Write-Say "Please type 1 or 2." }
+        "3" { $persona = "freelancer";     $personaLabel = "Freelancer/consultant" }
+        default { Write-Say "Please type 1, 2, or 3." }
     }
 }
 
@@ -68,6 +70,7 @@ Write-Say "⚡  Setting up the '$personaLabel' personality..."
 $skills = switch ($persona) {
     "business-owner" { @("customer-message", "proposal-or-quote", "marketing-copy", "build-agent") }
     "side-project"   { @("draft-content", "launch-copy", "scope-and-prioritize", "build-agent") }
+    "freelancer"     { @("client-update", "scope-and-estimate", "scope-creep-response", "build-agent") }
 }
 
 # --- Destination ---
@@ -131,5 +134,6 @@ Write-Say "First-time tip — try asking Claude something like..."
 switch ($persona) {
     "business-owner" { Write-Say "    `"Help me draft a follow-up email to a lead I haven't heard back from in two weeks.`"" }
     "side-project"   { Write-Say "    `"I have 3 hours this Saturday. What's the smallest useful thing I should ship?`"" }
+    "freelancer"     { Write-Say "    `"Draft this week's status update for [client]. Notes: shipped the homepage, blocked on copy approval.`"" }
 }
 Write-Host ""

@@ -33,6 +33,7 @@ When you run the installer, Bauer:
 |---|---|---|
 | 🏪 | **Small business owner** | Tuned for customer comms, proposals/quotes, and marketing copy |
 | 🚀 | **Side project runner** | Tuned for drafting content, launch copy, and "what should I ship next?" |
+| 💼 | **Freelancer / consultant** | Tuned for client updates, scoping new work, and handling scope creep |
 
 Each persona ships 4 skills — 3 role-specific + a shared meta-skill:
 
@@ -40,6 +41,7 @@ Each persona ships 4 skills — 3 role-specific + a shared meta-skill:
 |---|---|---|
 | Small business owner | `customer-message`, `proposal-or-quote`, `marketing-copy` | `build-agent` |
 | Side project runner | `draft-content`, `launch-copy`, `scope-and-prioritize` | `build-agent` |
+| Freelancer / consultant | `client-update`, `scope-and-estimate`, `scope-creep-response` | `build-agent` |
 
 `build-agent` walks you through designing a custom agent in plain English — purpose, access, model choice (closed-source vs. open-source local), risks, guardrails — then writes the skill file for you.
 
