@@ -81,12 +81,39 @@ if ! command -v node >/dev/null 2>&1; then
     exit 1
 fi
 
+# --- Helper: run `npm install -g` with a user-prefix fallback ---
+# Many macOS setups have /usr/local owned by root, breaking `npm install -g`.
+# We auto-fall-back to ~/.npm-global which the user owns.
+npm_global_install() {
+    local pkg="$1"
+    if npm install -g "$pkg" >/dev/null 2>&1; then
+        return 0
+    fi
+    # Fallback: use a user-owned global prefix
+    if [ ! -d "$HOME/.npm-global" ]; then
+        mkdir -p "$HOME/.npm-global"
+    fi
+    local saved_prefix
+    saved_prefix=$(npm config get prefix 2>/dev/null || echo "")
+    npm config set prefix "$HOME/.npm-global"
+    if npm install -g "$pkg" --cache=/tmp/bauer-npm-cache >/dev/null 2>&1; then
+        # Make sure ~/.npm-global/bin is on PATH for THIS session
+        export PATH="$HOME/.npm-global/bin:$PATH"
+        # Suggest the user add it permanently
+        warn "npm global directory was set to ~/.npm-global (you didn't have write access to the system one)."
+        say "    Add this to your ~/.zshrc or ~/.bashrc to make 'claude' / 'ccr' work in new terminals:"
+        say "        export PATH=\"\$HOME/.npm-global/bin:\$PATH\""
+        return 0
+    fi
+    return 1
+}
+
 if ! command -v claude >/dev/null 2>&1; then
     say "📦  Installing Claude Code..."
-    npm install -g @anthropic-ai/claude-code >/dev/null 2>&1 || {
-        warn "Install failed. Try: sudo npm install -g @anthropic-ai/claude-code"
+    if ! npm_global_install "@anthropic-ai/claude-code"; then
+        warn "Install failed. Try manually:  sudo npm install -g @anthropic-ai/claude-code"
         exit 1
-    }
+    fi
     ok "Claude Code installed"
     blank
 fi
@@ -94,29 +121,51 @@ fi
 # --- Install the Ollama ↔ Claude Code bridge ---
 if ! command -v ccr >/dev/null 2>&1; then
     say "🔗  Installing the Ollama bridge (claude-code-router)..."
-    npm install -g @musistudio/claude-code-router >/dev/null 2>&1 || {
-        warn "Bridge install failed. You can install manually with:"
-        say "    npm install -g @musistudio/claude-code-router"
-        say "Continuing — we'll set up config; you can install the bridge later."
-    }
+    if ! npm_global_install "claude-code-router"; then
+        warn "Bridge install failed. Try manually:  sudo npm install -g claude-code-router"
+        warn "Continuing — we'll set up config; you can install the bridge later."
+    fi
     blank
 fi
 
 # --- Write the bridge config ---
+# IMPORTANT: claude-code-router looks for ~/.claude-code-router/config-router.json
 CCR_CONFIG_DIR="$HOME/.claude-code-router"
 mkdir -p "$CCR_CONFIG_DIR"
-cat > "$CCR_CONFIG_DIR/config.json" <<EOF
+cat > "$CCR_CONFIG_DIR/config-router.json" <<EOF
 {
-  "Providers": [
-    {
-      "name": "ollama",
-      "api_base_url": "http://localhost:11434/v1/chat/completions",
-      "api_key": "not-needed",
-      "models": ["$MODEL"]
+  "server": {
+    "port": 3456,
+    "host": "127.0.0.1"
+  },
+  "routing": {
+    "rules": {
+      "default":     { "provider": "ollama", "model": "$MODEL" },
+      "background":  { "provider": "ollama", "model": "$MODEL" },
+      "thinking":    { "provider": "ollama", "model": "$MODEL" },
+      "longcontext": { "provider": "ollama", "model": "$MODEL" }
+    },
+    "defaultProvider": "ollama",
+    "providers": {
+      "ollama": {
+        "type": "openai",
+        "endpoint": "http://localhost:11434/v1/chat/completions",
+        "authentication": {
+          "type": "bearer",
+          "credentials": { "apiKey": "not-needed" }
+        },
+        "settings": {
+          "categoryMappings": {
+            "default": true,
+            "background": true,
+            "thinking": true,
+            "longcontext": true
+          },
+          "models": ["$MODEL"],
+          "defaultModel": "$MODEL"
+        }
+      }
     }
-  ],
-  "Router": {
-    "default": "ollama,$MODEL"
   }
 }
 EOF

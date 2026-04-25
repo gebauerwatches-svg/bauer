@@ -78,7 +78,9 @@ if (-not (Get-Command claude -ErrorAction SilentlyContinue)) {
     try {
         & npm install -g "@anthropic-ai/claude-code" 2>&1 | Out-Null
     } catch {
-        Write-Warn "Install failed. Try running PowerShell as Administrator."
+        Write-Warn "Install failed. Try running PowerShell as Administrator, or use:"
+        Write-Say "    npm config set prefix `"$env:USERPROFILE\.npm-global`""
+        Write-Say "    npm install -g @anthropic-ai/claude-code"
         exit 1
     }
     Write-Ok "Claude Code installed"
@@ -89,33 +91,56 @@ if (-not (Get-Command claude -ErrorAction SilentlyContinue)) {
 if (-not (Get-Command ccr -ErrorAction SilentlyContinue)) {
     Write-Say "🔗  Installing the Ollama bridge (claude-code-router)..."
     try {
-        & npm install -g "@musistudio/claude-code-router" 2>&1 | Out-Null
+        & npm install -g "claude-code-router" 2>&1 | Out-Null
     } catch {
         Write-Warn "Bridge install failed. Manual install:"
-        Write-Say "    npm install -g @musistudio/claude-code-router"
+        Write-Say "    npm install -g claude-code-router"
     }
     Write-Host ""
 }
 
 # --- Write bridge config ---
+# IMPORTANT: claude-code-router looks for config-router.json (not config.json)
 $ccrDir = Join-Path $env:USERPROFILE ".claude-code-router"
 New-Item -ItemType Directory -Force -Path $ccrDir | Out-Null
 $config = @"
 {
-  "Providers": [
-    {
-      "name": "ollama",
-      "api_base_url": "http://localhost:11434/v1/chat/completions",
-      "api_key": "not-needed",
-      "models": ["$model"]
+  "server": {
+    "port": 3456,
+    "host": "127.0.0.1"
+  },
+  "routing": {
+    "rules": {
+      "default":     { "provider": "ollama", "model": "$model" },
+      "background":  { "provider": "ollama", "model": "$model" },
+      "thinking":    { "provider": "ollama", "model": "$model" },
+      "longcontext": { "provider": "ollama", "model": "$model" }
+    },
+    "defaultProvider": "ollama",
+    "providers": {
+      "ollama": {
+        "type": "openai",
+        "endpoint": "http://localhost:11434/v1/chat/completions",
+        "authentication": {
+          "type": "bearer",
+          "credentials": { "apiKey": "not-needed" }
+        },
+        "settings": {
+          "categoryMappings": {
+            "default": true,
+            "background": true,
+            "thinking": true,
+            "longcontext": true
+          },
+          "models": ["$model"],
+          "defaultModel": "$model"
+        }
+      }
     }
-  ],
-  "Router": {
-    "default": "ollama,$model"
   }
 }
 "@
-Set-Content -Path (Join-Path $ccrDir "config.json") -Value $config
+Set-Content -Path (Join-Path $ccrDir "config-router.json") -Value $config
 Write-Ok "Bridge configured for Ollama + $model"
 Write-Host ""
 
