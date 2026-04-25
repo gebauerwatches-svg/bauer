@@ -124,9 +124,25 @@
             <code id="install-cmd"></code>
             <button class="copy-btn" id="copy-btn">Copy</button>
           </div>
-          <p class="step-detail">Text will scroll by &mdash; that&rsquo;s normal. After about 60 seconds, you&rsquo;ll be asked which persona fits you best. Pick 1 or 2.</p>
+          <p class="step-detail">Text will scroll by &mdash; that&rsquo;s normal. After about 60 seconds, you&rsquo;ll be asked which persona fits you best. Pick 1, 2, or 3.</p>
         </li>
       </ol>
+    </section>
+
+    <section class="install-local-feature" id="install-local">
+      <p class="section-label">Or: open-source local AI</p>
+      <h2>Run an AI on your own computer instead.</h2>
+      <p class="muted">Same Bauer experience &mdash; different AI underneath. Free to run, more privacy, no subscription. About 5 minutes to install (downloads ~4 GB). Slower and less capable than Claude on complex tasks, but great for privacy-sensitive work.</p>
+
+      <div class="local-cmds">
+        <p class="cmd-label">🍎 Mac / Linux</p>
+        <pre><code>curl -sSL https://bauerai.vercel.app/install-local.sh | bash</code></pre>
+
+        <p class="cmd-label">🪟 Windows (PowerShell)</p>
+        <pre><code>iwr https://bauerai.vercel.app/install-local.ps1 | iex</code></pre>
+      </div>
+
+      <p class="muted small-note">The local installer auto-installs <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a>, downloads an open-source model (qwen2.5-coder:7b), installs Claude Code, and sets up the bridge between them. After install, run <code>ccr code</code> to start chatting with your local AI.</p>
     </section>
 
     <section class="prereqs">
@@ -139,8 +155,8 @@
           A <a href="https://claude.ai" target="_blank" rel="noopener">Claude Pro</a> subscription ($20/mo). Predictable, fastest, easiest. Bauer&rsquo;s installer sets it up. The free claude.ai tier alone won&rsquo;t be enough.
         </li>
         <li>
-          <strong>Open-source (free, more setup)</strong> &mdash;
-          A local model via <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> (e.g., Llama 3.3 or Mistral). Runs entirely on your computer. More privacy, no monthly cost, slower on complex tasks. <em>Currently a manual wiring</em> &mdash; auto-configuration is on the roadmap. The <code>build-agent</code> skill walks you through it.
+          <strong>Open-source (free)</strong> &mdash;
+          A local model via <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a>. Runs entirely on your computer. More privacy, no monthly cost, slower on complex tasks. <strong>Now fully automated</strong> &mdash; use the <a href="#install-local">open-source installer</a> above.
         </li>
       </ul>
     </section>
@@ -160,7 +176,7 @@
 
       <div class="qa">
         <h3>Can I use open-source models instead of Claude?</h3>
-        <p>Yes. Bauer&rsquo;s <code>build-agent</code> skill explicitly asks which model you want — closed (Claude Pro) or open-source local (Ollama + a model like Llama 3.3) — and adapts the agent&rsquo;s instructions based on your choice. Claude Pro is the easiest path; open-source is free but more setup. Auto-configuring local models is on the roadmap; for now you wire up Ollama yourself and Bauer guides you.</p>
+        <p>Yes &mdash; there&rsquo;s a separate one-command installer (<a href="#install-local">see above</a>) that auto-installs <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a>, downloads a local model, installs Claude Code, and sets up the bridge between them. Same persona/skills experience, just slower and free. The <code>build-agent</code> skill also asks about model choice when you design new agents.</p>
       </div>
 
       <div class="qa">
@@ -206,5 +222,6 @@
   </main>
 
   <script src="script.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

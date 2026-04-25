@@ -8,6 +8,8 @@ A one-command installer that sets up Claude Code with a curated config tuned for
 
 ## Install
 
+### Recommended: Claude (hosted, $20/mo subscription)
+
 **Mac / Linux:**
 ```bash
 curl -sSL https://bauerai.vercel.app/install.sh | bash
@@ -17,6 +19,22 @@ curl -sSL https://bauerai.vercel.app/install.sh | bash
 ```powershell
 iwr https://bauerai.vercel.app/install.ps1 | iex
 ```
+
+### Or: open-source local AI (free, runs on your computer)
+
+Auto-installs Ollama, downloads a local model (qwen2.5-coder:7b, ~4 GB), installs Claude Code, and sets up the bridge between them.
+
+**Mac / Linux:**
+```bash
+curl -sSL https://bauerai.vercel.app/install-local.sh | bash
+```
+
+**Windows (PowerShell):**
+```powershell
+iwr https://bauerai.vercel.app/install-local.ps1 | iex
+```
+
+After install, run `ccr code` to start chatting with the local AI.
 
 ## What it does
 
