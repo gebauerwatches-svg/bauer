@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — Bauer</title>
+  <meta name="description" content="Common questions about Bauer — what it does, what it costs, how it works, and how to uninstall." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <nav>
+      <a href="/" class="brand brand-link">
+        <svg class="brand-icon" width="22" height="14" viewBox="0 0 22 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect class="brick-main" x="0" y="0" width="10" height="6" rx="1"/>
+          <rect class="brick-main" x="11" y="0" width="10" height="6" rx="1"/>
+          <rect class="brick-main" x="0" y="7" width="4" height="6" rx="1"/>
+          <rect class="brick-accent" x="5" y="7" width="10" height="6" rx="1"/>
+          <rect class="brick-main" x="16" y="7" width="5" height="6" rx="1"/>
+        </svg>
+        <span>Bauer</span>
+      </a>
+      <div class="nav-right">
+        <a href="/install.html" class="nav-text-link">Install</a>
+        <a href="/agents.html" class="nav-text-link">Agents</a>
+        <a href="/faq.html" class="nav-text-link active">FAQ</a>
+        <a href="/about.html" class="nav-text-link">About</a>
+      </div>
+    </nav>
+
+    <header class="header-page">
+      <p class="section-label">FAQ</p>
+      <h1>Frequently asked questions.</h1>
+      <p class="lede">Click any question to expand the answer.</p>
+    </header>
+
+    <section class="faq">
+      <p class="section-label">The basics</p>
+
+      <details class="qa" open>
+        <summary>What does Bauer actually install?</summary>
+        <p>Bauer drops a curated <strong>config file</strong> (named <code>CLAUDE.md</code> &mdash; it tells the AI how to behave for your role) and 4 role-specific <strong>skills</strong> (small instruction files for common tasks) into your computer&rsquo;s AI settings. Three of the skills cover the 80% of tasks you&rsquo;ll do in your role, plus a <code>build-agent</code> skill that walks you through designing custom agents.</p>
+      </details>
+
+      <details class="qa">
+        <summary>How is this different from setting up AI yourself?</summary>
+        <p>By default, when you install the AI tool yourself, it comes with no config and no skills &mdash; you&rsquo;re starting with a blank assistant that doesn&rsquo;t know who you are or how you work. Bauer drops in the config you&rsquo;d otherwise spend hours figuring out, and gives you a guided agent builder so you can extend it without learning the underlying file format.</p>
+      </details>
+
+      <details class="qa">
+        <summary>What AI does Bauer use?</summary>
+        <p>By default, Anthropic&rsquo;s Claude (via the terminal version called Claude Code, running under the hood). Bauer also has a separate <a href="/install.html">open-source install path</a> that uses a local AI model (via Ollama) instead &mdash; same Bauer experience, but free and runs entirely on your computer.</p>
+      </details>
+
+      <details class="qa">
+        <summary>How is this different from ChatGPT?</summary>
+        <p>ChatGPT is a website you talk to in a browser. Bauer sets up an AI in your computer&rsquo;s terminal that can read your files, run commands, and act as an agent &mdash; not just chat. It&rsquo;s also configured for your specific role (small business owner, freelancer, etc.), not a generic assistant.</p>
+      </details>
+
+      <details class="qa">
+        <summary>How big is the download?</summary>
+        <p>The Claude path is small &mdash; about 50 MB total. The open-source path is bigger because it includes a local AI model (~4 GB). The Bauer-specific files (configs, scripts) are tiny &mdash; under 200 KB.</p>
+      </details>
+    </section>
+
+    <section class="faq">
+      <p class="section-label">Cost &amp; safety</p>
+
+      <details class="qa">
+        <summary>How much does it cost?</summary>
+        <p>Bauer itself is free and open source. To use the AI, you have two options:</p>
+        <p>&bull; <strong>Claude Pro subscription</strong> ($20/mo) &mdash; recommended; predictable, easiest, most capable.<br>
+        &bull; <strong>Open-source local model</strong> (free) &mdash; more setup, slower, but no monthly cost.</p>
+        <p>The free claude.ai tier alone won&rsquo;t be enough for serious use.</p>
+      </details>
+
+      <details class="qa">
+        <summary>Is my data safe?</summary>
+        <p>The AI only reads files you explicitly ask it to. Bauer doesn&rsquo;t add any data collection &mdash; the configs live entirely on your computer. With the open-source local path, <strong>nothing leaves your machine</strong>. With the Claude path, prompts go to Anthropic&rsquo;s servers (they don&rsquo;t train on your data).</p>
+      </details>
+
+      <details class="qa">
+        <summary>Can I really run AI on my own computer? Won&rsquo;t it be slow?</summary>
+        <p>Yes &mdash; the open-source path runs everything locally via Ollama. Smaller open-source models (like Llama or Qwen 7B) work fine on a modern Mac or Windows laptop with 8&ndash;16 GB RAM.</p>
+        <p>Honest tradeoff: local models <em>are</em> slower and less capable than Claude on complex multi-step tasks. Simple tasks (drafting an email, answering a question) finish in seconds. Hard agent tasks might take minutes. For real privacy or zero-cost work, it&rsquo;s a good fit. For maximum capability, Claude is better.</p>
+      </details>
+
+      <details class="qa">
+        <summary>Will my IT department be okay with this?</summary>
+        <p>Probably yes &mdash; Claude is the same AI that many big companies (banks, law firms, consultancies) already use. But if you&rsquo;re on a managed work laptop and unsure, ask before you install. The open-source path may be easier to approve since nothing leaves your machine.</p>
+      </details>
+    </section>
+
+    <section class="faq">
+      <p class="section-label">Install &amp; uninstall</p>
+
+      <details class="qa">
+        <summary>I already have a <code>CLAUDE.md</code>. Will Bauer overwrite it?</summary>
+        <p>No. We back up your existing <code>CLAUDE.md</code> to <code>CLAUDE.md.before-bauer.[timestamp]</code> before writing the new one. Same for any skill folders that collide. Nothing is lost.</p>
+      </details>
+
+      <details class="qa">
+        <summary>How do I uninstall?</summary>
+        <p>Delete <code>~/.claude/CLAUDE.md</code> and the relevant <code>~/.claude/skills/</code> subfolders (or restore your backups). The underlying AI tool stays installed; you can always run it with no config and it works fine.</p>
+      </details>
+
+      <details class="qa">
+        <summary>What if I get stuck during install?</summary>
+        <p>Email <a href="mailto:gebauerwatches@gmail.com">gebauerwatches@gmail.com</a> with a screenshot &mdash; we&rsquo;ll help.</p>
+      </details>
+
+      <details class="qa">
+        <summary>Why &ldquo;Bauer&rdquo;?</summary>
+        <p>It&rsquo;s German for &ldquo;builder&rdquo; &mdash; and it&rsquo;s a piece of the founder&rsquo;s last name. <a href="/about.html">Read the story →</a></p>
+      </details>
+    </section>
+
+    <section class="cta-back">
+      <a href="/install.html" class="cta-btn">Ready? Install Bauer &rarr;</a>
+    </section>
+
+    <footer>
+      <p>Free &middot; Open source &middot; <a href="https://github.com/gebauerwatches-svg/bauer" target="_blank" rel="noopener">View the code on GitHub</a></p>
+      <p class="footer-note">Questions? Email <a href="mailto:gebauerwatches@gmail.com">gebauerwatches@gmail.com</a>.</p>
+    </footer>
+  </main>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build agents in plain English — Bauer</title>
+  <meta name="description" content="Bauer's built-in agent designer walks you through designing custom AI helpers — purpose, access, model choice, guardrails — in plain English. No code." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <nav>
+      <a href="/" class="brand brand-link">
+        <svg class="brand-icon" width="22" height="14" viewBox="0 0 22 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect class="brick-main" x="0" y="0" width="10" height="6" rx="1"/>
+          <rect class="brick-main" x="11" y="0" width="10" height="6" rx="1"/>
+          <rect class="brick-main" x="0" y="7" width="4" height="6" rx="1"/>
+          <rect class="brick-accent" x="5" y="7" width="10" height="6" rx="1"/>
+          <rect class="brick-main" x="16" y="7" width="5" height="6" rx="1"/>
+        </svg>
+        <span>Bauer</span>
+      </a>
+      <div class="nav-right">
+        <a href="/install.html" class="nav-text-link">Install</a>
+        <a href="/agents.html" class="nav-text-link active">Agents</a>
+        <a href="/faq.html" class="nav-text-link">FAQ</a>
+        <a href="/about.html" class="nav-text-link">About</a>
+      </div>
+    </nav>
+
+    <header class="header-page">
+      <p class="section-label">Agents</p>
+      <h1>Build agents in plain English.</h1>
+      <p class="lede">Custom AI helpers, designed and configured without writing code.</p>
+    </header>
+
+    <section class="agents-feature">
+      <p>Once Bauer is installed, every persona ships with a <code>build-agent</code> skill. Just say <em>&ldquo;help me build an agent that&hellip;&rdquo;</em> in your terminal, and Bauer walks you through it.</p>
+      <p>An agent is a small set of instructions that tells your AI exactly what to do, what to access, and what limits to respect. Bauer turns the design process into a conversation.</p>
+
+      <ul class="agent-features">
+        <li>
+          <span class="brick-bullet"></span>
+          <div>
+            <strong>Define what it does.</strong>
+            Plain-English purpose, trigger, output. One sentence each.
+          </div>
+        </li>
+        <li>
+          <span class="brick-bullet"></span>
+          <div>
+            <strong>Set careful permissions.</strong>
+            Should it read your Drive but never delete? Read your inbox but not reply? Tell Bauer in everyday language.
+          </div>
+        </li>
+        <li>
+          <span class="brick-bullet"></span>
+          <div>
+            <strong>Pick your model.</strong>
+            Closed-source (Claude Pro, $20/mo) for the easiest path. Or open-source local (Ollama + Llama or Mistral) for free and private.
+          </div>
+        </li>
+        <li>
+          <span class="brick-bullet"></span>
+          <div>
+            <strong>Set hard guardrails.</strong>
+            Rules the agent will <em>never</em> break &mdash; like &ldquo;never send anything without showing me first.&rdquo;
+          </div>
+        </li>
+        <li>
+          <span class="brick-bullet"></span>
+          <div>
+            <strong>Bauer writes the agent file.</strong>
+            You get a trigger phrase, an editable file, and one example prompt to try right away.
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="agent-examples">
+      <p class="section-label">What people actually build</p>
+      <ul class="explore-list">
+        <li>📧 <strong>Inbox triage</strong> &mdash; reads new emails every morning, flags the ones that need a real reply</li>
+        <li>📝 <strong>Weekly client updates</strong> &mdash; takes raw notes, drafts a status email per client</li>
+        <li>📊 <strong>Spreadsheet summarizer</strong> &mdash; pulls key numbers from a sales spreadsheet into a one-paragraph recap</li>
+        <li>📅 <strong>Meeting prep</strong> &mdash; on Sunday, drafts talking points for next week&rsquo;s key meetings</li>
+        <li>🎙️ <strong>Newsletter drafter</strong> &mdash; turns this week&rsquo;s notes into a draft post for review</li>
+      </ul>
+      <p class="muted">Bauer doesn&rsquo;t ship these pre-built &mdash; but it walks you through making any of them yourself in 5&ndash;10 minutes.</p>
+    </section>
+
+    <section class="cta-back">
+      <a href="/install.html" class="cta-btn">Install Bauer to start building &rarr;</a>
+    </section>
+
+    <footer>
+      <p>Free &middot; Open source &middot; <a href="https://github.com/gebauerwatches-svg/bauer" target="_blank" rel="noopener">View the code on GitHub</a></p>
+      <p class="footer-note">Questions? Email <a href="mailto:gebauerwatches@gmail.com">gebauerwatches@gmail.com</a>.</p>
+    </footer>
+  </main>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

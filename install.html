@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Install Bauer — AI in 60 seconds</title>
+  <meta name="description" content="Install Bauer in one command. Mac, Windows, or open-source local AI." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <nav>
+      <a href="/" class="brand brand-link">
+        <svg class="brand-icon" width="22" height="14" viewBox="0 0 22 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect class="brick-main" x="0" y="0" width="10" height="6" rx="1"/>
+          <rect class="brick-main" x="11" y="0" width="10" height="6" rx="1"/>
+          <rect class="brick-main" x="0" y="7" width="4" height="6" rx="1"/>
+          <rect class="brick-accent" x="5" y="7" width="10" height="6" rx="1"/>
+          <rect class="brick-main" x="16" y="7" width="5" height="6" rx="1"/>
+        </svg>
+        <span>Bauer</span>
+      </a>
+      <div class="nav-right">
+        <a href="/install.html" class="nav-text-link active">Install</a>
+        <a href="/agents.html" class="nav-text-link">Agents</a>
+        <a href="/faq.html" class="nav-text-link">FAQ</a>
+        <a href="/about.html" class="nav-text-link">About</a>
+      </div>
+    </nav>
+
+    <header class="header-page">
+      <p class="section-label">Install</p>
+      <h1>Install Bauer.</h1>
+      <p class="lede">Pick the path that fits you, then run one command.</p>
+    </header>
+
+    <section class="path-picker">
+      <p class="section-label">Step 1 — Pick your path</p>
+      <div class="path-buttons">
+        <button class="path-btn active" data-path="claude">
+          <span class="path-emoji">⚡</span>
+          <span class="path-title">Claude (recommended)</span>
+          <span class="path-meta">$20/mo · easiest · most capable</span>
+        </button>
+        <button class="path-btn" data-path="local">
+          <span class="path-emoji">🔒</span>
+          <span class="path-title">Open-source local AI</span>
+          <span class="path-meta">free · runs on your computer · slower</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============ Claude path ============ -->
+    <section class="install-path" id="path-claude">
+      <p class="section-label">Step 2 — Pick your computer</p>
+      <div class="os-buttons">
+        <button class="os-btn" data-os="mac">I use a Mac</button>
+        <button class="os-btn" data-os="windows">I use Windows</button>
+      </div>
+
+      <div class="step-2 hidden">
+        <p class="section-label">Step 3 — Open <span id="app-name">the right app</span></p>
+        <p class="step-detail" id="open-app-hint"></p>
+      </div>
+
+      <div class="step-3 hidden">
+        <p class="section-label">Step 4 — Copy &amp; paste this, then press Enter</p>
+        <div class="code-row">
+          <code id="install-cmd"></code>
+          <button class="copy-btn" id="copy-btn">Copy</button>
+        </div>
+        <p class="step-detail">Text will scroll by &mdash; that&rsquo;s normal. After about 60 seconds, you&rsquo;ll be asked which persona fits you best. Pick 1, 2, or 3. Done!</p>
+      </div>
+
+      <section class="prereqs">
+        <p class="section-label">What you&rsquo;ll need</p>
+        <ul class="prereq-list">
+          <li>A Mac or Windows computer</li>
+          <li>A <a href="https://claude.ai" target="_blank" rel="noopener">Claude Pro</a> subscription ($20/mo). The free claude.ai tier alone won&rsquo;t be enough.</li>
+          <li>About 5 minutes for the one-time setup</li>
+        </ul>
+      </section>
+    </section>
+
+    <!-- ============ Open-source path ============ -->
+    <section class="install-path hidden" id="path-local">
+      <p class="section-label">Pick your computer + run the command</p>
+      <p class="muted">The local installer auto-installs <strong>Ollama</strong> (free software that runs AI models on your computer), downloads an open-source model, installs Claude Code, and sets up the bridge between them. After install, run <code>ccr code</code> to start chatting with your local AI.</p>
+
+      <div class="local-cmds">
+        <p class="cmd-label">🍎 Mac / Linux</p>
+        <pre><code>curl -sSL https://bauerai.vercel.app/install-local.sh | bash</code></pre>
+
+        <p class="cmd-label">🪟 Windows (PowerShell)</p>
+        <pre><code>iwr https://bauerai.vercel.app/install-local.ps1 | iex</code></pre>
+      </div>
+
+      <section class="prereqs">
+        <p class="section-label">What you&rsquo;ll need</p>
+        <ul class="prereq-list">
+          <li>A Mac or Windows computer with at least 8 GB RAM (16 GB+ recommended)</li>
+          <li>~5 GB of free disk space (for the AI model)</li>
+          <li>About 5&ndash;10 minutes (most of which is the model download)</li>
+          <li><strong>No subscription needed</strong> &mdash; everything runs locally and is free</li>
+        </ul>
+      </section>
+
+      <p class="muted small-note">Local open-source models are slower and less capable than Claude on complex tasks, but great for privacy-sensitive work and zero ongoing cost. For complex agent work, switch back to the Claude path.</p>
+    </section>
+
+    <section class="post-install">
+      <p class="section-label">After install</p>
+      <ul class="explore-list">
+        <li>🤖 <a href="/agents.html">Build your first agent</a> — Bauer walks you through it in plain English</li>
+        <li>❓ <a href="/faq.html">FAQ</a> — what got installed, cost details, how to uninstall</li>
+        <li>📧 Stuck? <a href="mailto:gebauerwatches@gmail.com">Email us</a> with a screenshot.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>Free &middot; Open source &middot; <a href="https://github.com/gebauerwatches-svg/bauer" target="_blank" rel="noopener">View the code on GitHub</a></p>
+      <p class="footer-note">Questions? Email <a href="mailto:gebauerwatches@gmail.com">gebauerwatches@gmail.com</a>.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

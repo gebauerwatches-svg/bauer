@@ -628,6 +628,143 @@ header code,
   white-space: nowrap;
 }
 
+/* ============ Multi-page layout (added when site was split) ============ */
+
+/* Sub-page headers (smaller than the homepage hero) */
+.header-page h1 {
+  font-size: clamp(36px, 5.5vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  font-weight: 800;
+  margin: 8px 0 14px;
+}
+.header-page .lede {
+  font-size: 22px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Homepage hero variant */
+.hero-home {
+  padding-top: 8px;
+}
+.hero-home h1 {
+  font-size: clamp(36px, 6vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+.hero-home .lede {
+  font-size: 22px;
+  color: var(--text-2);
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+.hero-home .sub {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 600px;
+  margin-bottom: 32px;
+}
+.hero-cta { margin-top: 8px; }
+
+.cta-btn-primary {
+  font-size: 18px;
+  padding: 16px 28px;
+  font-weight: 700;
+  background: var(--text);
+  color: var(--bg);
+}
+.cta-btn-primary:hover {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/* Personas section on the home page */
+.personas-home { margin-top: 56px; }
+.personas-home .muted { margin-bottom: 24px; }
+
+/* Generic "explore more" link list (home, install post-install, faq end) */
+.explore-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.explore-list li {
+  font-size: 17px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+.explore-list a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+.explore-list a:hover { text-decoration: underline; }
+
+.explore { margin-top: 56px; }
+
+/* ============ Install page: path picker (Claude vs local) ============ */
+.path-picker { margin-top: 8px; }
+
+.path-buttons {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.path-btn {
+  font-family: inherit;
+  text-align: left;
+  padding: 18px 20px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  border-radius: 14px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+.path-btn:hover {
+  border-color: var(--text);
+}
+.path-btn.active {
+  border-color: var(--accent);
+  background: rgba(217, 119, 6, 0.04);
+}
+.path-emoji {
+  font-size: 24px;
+  line-height: 1;
+}
+.path-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.path-meta {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Container that holds each path's install steps */
+.install-path { margin-top: 36px; }
+
+/* The post-install "what's next" section */
+.post-install { margin-top: 56px; }
+
+/* ============ Agents page extras ============ */
+.agent-examples { margin-top: 56px; }
+.agent-examples ul { margin-bottom: 12px; }
+
+/* ============ Responsive ============ */
 @media (min-width: 720px) {
   .persona-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -636,4 +773,15 @@ header code,
     grid-template-columns: repeat(2, 1fr);
   }
   .persona p { font-size: 14px; }
+
+  .path-buttons {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .nav-right { gap: 22px; }
+}
+
+@media (max-width: 480px) {
+  .nav-right { gap: 14px; }
+  .nav-text-link { font-size: 13px; }
 }

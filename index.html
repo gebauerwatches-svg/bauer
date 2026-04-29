@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bauer — AI you install, agents you build</title>
-  <meta name="description" content="One command sets up AI tuned for your role. Then a built-in agent designer walks you through building automations — what they can access, what they shouldn't do — all in plain English." />
+  <title>Bauer — AI you install. Agents you build.</title>
+  <meta name="description" content="A one-command AI installer for non-developers. Tuned for small business owners, side project runners, and freelancers." />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -21,199 +21,53 @@
         <span>Bauer</span>
       </a>
       <div class="nav-right">
+        <a href="/install.html" class="nav-text-link">Install</a>
+        <a href="/agents.html" class="nav-text-link">Agents</a>
+        <a href="/faq.html" class="nav-text-link">FAQ</a>
         <a href="/about.html" class="nav-text-link">About</a>
-        <a href="#install" class="nav-link">Install ↓</a>
       </div>
     </nav>
 
-    <header>
+    <header class="hero-home">
       <h1>AI you install. Agents you build.</h1>
-      <p class="lede">For small business owners and side project runners.</p>
-      <p class="sub">Skip the AI setup grind &mdash; one command and you&rsquo;ve got AI tuned for the work you actually do.</p>
-      <p class="sub">Then ask Bauer to help you design custom agents in plain English: what they can access, what they shouldn&rsquo;t do, how they behave. No code.</p>
+      <p class="lede">For small business owners, side project runners, and freelancers.</p>
+      <p class="sub">One command sets up an AI assistant tuned for the work you actually do &mdash; drafting customer messages, planning content, building proposals. Then ask it to help you design custom agents in plain English. No code.</p>
+      <div class="hero-cta">
+        <a href="/install.html" class="cta-btn cta-btn-primary">Install Bauer in 60 seconds &rarr;</a>
+      </div>
     </header>
 
-    <section class="personas">
-      <p class="section-label">Three personas to pick from</p>
-      <p class="muted">Bauer asks during install. Each ships a curated <strong>config</strong> (a small file telling the AI how to behave for your role) and 4 role-specific <strong>skills</strong> (mini-instructions for common tasks like writing emails or planning content).</p>
+    <section class="personas-home">
+      <p class="section-label">Three personas</p>
+      <p class="muted">Bauer asks during install. Each ships a curated config and 4 role-specific skills.</p>
 
       <div class="persona-grid">
         <article class="persona">
           <span class="persona-emoji">🏪</span>
           <h3>Small business owner</h3>
-          <p>Shop owners, agency owners, solo founders, operators. Tuned for customer comms, proposals/quotes, and marketing copy.</p>
+          <p>Shop owners, agency owners, solo founders. Tuned for customer comms, proposals, and marketing copy.</p>
         </article>
         <article class="persona">
           <span class="persona-emoji">🚀</span>
           <h3>Side project runner</h3>
-          <p>Newsletter writers, indie makers, side hustlers, content creators. Tuned for drafting content, launch copy, and &ldquo;what should I do next?&rdquo;</p>
+          <p>Newsletter writers, indie makers, side hustlers. Tuned for drafting content, launch copy, and &ldquo;what should I ship next?&rdquo;</p>
         </article>
         <article class="persona">
           <span class="persona-emoji">💼</span>
           <h3>Freelancer / consultant</h3>
-          <p>Solo consultants, designers, writers, contractors. Tuned for client updates, scoping new work, and handling scope creep gracefully.</p>
+          <p>Solo consultants, designers, contractors. Tuned for client updates, scoping new work, and handling scope creep.</p>
         </article>
       </div>
     </section>
 
-    <section class="agents-feature">
-      <p class="section-label">Beyond setup</p>
-      <h2>Build agents in plain English.</h2>
-      <p class="muted">Every Bauer install includes a <code>build-agent</code> skill. Just say <em>&ldquo;help me build an agent that&hellip;&rdquo;</em> and Bauer walks you through it.</p>
-
-      <ul class="agent-features">
-        <li>
-          <span class="brick-bullet"></span>
-          <div>
-            <strong>Define what it does.</strong>
-            Plain-English purpose, trigger, output. One sentence each.
-          </div>
-        </li>
-        <li>
-          <span class="brick-bullet"></span>
-          <div>
-            <strong>Set careful permissions.</strong>
-            Should it read your Drive but never delete? Read your inbox but not reply? Tell Bauer in everyday language.
-          </div>
-        </li>
-        <li>
-          <span class="brick-bullet"></span>
-          <div>
-            <strong>Pick your model.</strong>
-            Closed-source (Claude Pro, $20/mo) for the easiest path. Or open-source local (Ollama + Llama or Mistral) for free and private.
-          </div>
-        </li>
-        <li>
-          <span class="brick-bullet"></span>
-          <div>
-            <strong>Set hard guardrails.</strong>
-            Rules the agent will <em>never</em> break &mdash; like &ldquo;never send anything without showing me first.&rdquo;
-          </div>
-        </li>
-        <li>
-          <span class="brick-bullet"></span>
-          <div>
-            <strong>Bauer writes the agent file.</strong>
-            You get a trigger phrase, an editable file, and one example prompt to try right away.
-          </div>
-        </li>
+    <section class="explore">
+      <p class="section-label">Learn more</p>
+      <ul class="explore-list">
+        <li>📦 <a href="/install.html">How to install</a> — Mac, Windows, and the open-source local option</li>
+        <li>🤖 <a href="/agents.html">Build agents in plain English</a> — what Bauer can do once installed</li>
+        <li>❓ <a href="/faq.html">FAQ</a> — cost, privacy, what gets configured, how to uninstall</li>
+        <li>👋 <a href="/about.html">About</a> — the 14-year-old in Steamboat Springs who built this</li>
       </ul>
-    </section>
-
-    <section class="install" id="install">
-      <p class="section-label">Get started</p>
-      <h2>3 bricks. About a minute.</h2>
-
-      <ol class="steps">
-        <li>
-          <h3><span class="step-num">1</span> Pick your computer</h3>
-          <div class="os-buttons">
-            <button class="os-btn" data-os="mac">I use a Mac</button>
-            <button class="os-btn" data-os="windows">I use Windows</button>
-          </div>
-        </li>
-
-        <li class="step-2 hidden">
-          <h3><span class="step-num">2</span> Open <span id="app-name">the right app</span></h3>
-          <p class="step-detail" id="open-app-hint"></p>
-        </li>
-
-        <li class="step-3 hidden">
-          <h3><span class="step-num">3</span> Copy &amp; paste this, then press Enter</h3>
-          <div class="code-row">
-            <code id="install-cmd"></code>
-            <button class="copy-btn" id="copy-btn">Copy</button>
-          </div>
-          <p class="step-detail">Text will scroll by &mdash; that&rsquo;s normal. After about 60 seconds, you&rsquo;ll be asked which persona fits you best. Pick 1, 2, or 3.</p>
-        </li>
-      </ol>
-    </section>
-
-    <section class="install-local-feature" id="install-local">
-      <p class="section-label">Or: open-source local AI</p>
-      <h2>Run an AI on your own computer instead.</h2>
-      <p class="muted">Same Bauer experience &mdash; different AI underneath. Free to run, more privacy, no subscription. About 5 minutes to install (downloads ~4 GB). Slower and less capable than Claude on complex tasks, but great for privacy-sensitive work.</p>
-
-      <div class="local-cmds">
-        <p class="cmd-label">🍎 Mac / Linux</p>
-        <pre><code>curl -sSL https://bauerai.vercel.app/install-local.sh | bash</code></pre>
-
-        <p class="cmd-label">🪟 Windows (PowerShell)</p>
-        <pre><code>iwr https://bauerai.vercel.app/install-local.ps1 | iex</code></pre>
-      </div>
-
-      <p class="muted small-note">The local installer auto-installs <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> (free software that runs AI models on your computer), downloads an open-source model (qwen2.5-coder:7b), installs Claude Code, and sets up a small bridge program that lets them talk to each other. After install, run <code>ccr code</code> in your terminal to start chatting with your local AI.</p>
-    </section>
-
-    <section class="prereqs">
-      <p class="section-label">What you&rsquo;ll need</p>
-      <p class="muted">Two paths to the AI itself &mdash; pick one:</p>
-
-      <ul class="prereq-list">
-        <li>
-          <strong>Closed-source (recommended for most people)</strong> &mdash;
-          A <a href="https://claude.ai" target="_blank" rel="noopener">Claude Pro</a> subscription ($20/mo). Predictable, fastest, easiest. Bauer&rsquo;s installer sets it up. The free claude.ai tier alone won&rsquo;t be enough.
-        </li>
-        <li>
-          <strong>Open-source (free)</strong> &mdash;
-          A local model via <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a>. Runs entirely on your computer. More privacy, no monthly cost, slower on complex tasks. <strong>Now fully automated</strong> &mdash; use the <a href="#install-local">open-source installer</a> above.
-        </li>
-      </ul>
-    </section>
-
-    <section class="faq">
-      <p class="section-label">Common questions</p>
-      <p class="muted faq-hint">Click any question to expand the answer.</p>
-
-      <details class="qa" open>
-        <summary>What does this actually install?</summary>
-        <p>Bauer drops a curated <strong>config file</strong> (named <code>CLAUDE.md</code> &mdash; it tells the AI how to behave for your role) and 4 role-specific <strong>skills</strong> (small instruction files for common tasks) into your computer&rsquo;s AI settings. Three skills cover the 80% of tasks you&rsquo;ll actually do, plus a <code>build-agent</code> skill that walks you through designing custom AI agents in plain English.</p>
-      </details>
-
-      <details class="qa">
-        <summary>How is this different from setting up AI yourself?</summary>
-        <p>By default, when you install the AI tool yourself, it comes with no config and no skills &mdash; you&rsquo;re starting with a blank assistant that doesn&rsquo;t know who you are or how you work. Bauer drops in the config you&rsquo;d otherwise spend hours figuring out, and gives you a guided agent builder so you can extend it without learning the underlying file format.</p>
-      </details>
-
-      <details class="qa">
-        <summary>Can I use open-source models instead of Claude?</summary>
-        <p>Yes &mdash; there&rsquo;s a separate one-command installer (<a href="#install-local">see above</a>) that auto-installs <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a>, downloads a local AI model, installs Claude Code, and sets up the bridge between them. Same persona / skills experience, just slower and free. The <code>build-agent</code> skill also asks about model choice when you design new agents.</p>
-      </details>
-
-      <details class="qa">
-        <summary>What AI does Bauer use by default?</summary>
-        <p>Right now, Anthropic&rsquo;s Claude (via the terminal version called Claude Code, running under the hood). We may add more options based on what people actually want.</p>
-      </details>
-
-      <details class="qa">
-        <summary>I already have a <code>CLAUDE.md</code>. Will Bauer overwrite it?</summary>
-        <p>No. We back up your existing <code>CLAUDE.md</code> to <code>CLAUDE.md.before-bauer.[timestamp]</code> before writing the new one. Same for any skill folders that collide. Nothing is lost.</p>
-      </details>
-
-      <details class="qa">
-        <summary>How do I uninstall?</summary>
-        <p>Delete <code>~/.claude/CLAUDE.md</code> and the relevant <code>~/.claude/skills/</code> subfolders (or restore your backups). The underlying AI tool stays installed; you can always run it with no config and it works fine.</p>
-      </details>
-
-      <details class="qa">
-        <summary>Is my data safe?</summary>
-        <p>Same as the default AI install &mdash; the AI only reads files you explicitly ask it to. Bauer doesn&rsquo;t add any data collection. The configs live entirely on your computer. With the open-source local path, nothing leaves your machine at all.</p>
-      </details>
-
-      <details class="qa">
-        <summary>How much does it cost?</summary>
-        <p>Bauer itself is free and open source. To use the AI, either pay for Claude Pro ($20/mo &mdash; recommended) or set up an open-source local model (free, more setup). The free claude.ai tier alone won&rsquo;t be enough for serious use.</p>
-      </details>
-
-      <details class="qa">
-        <summary>What if I get stuck during install?</summary>
-        <p>Email <a href="mailto:gebauerwatches@gmail.com">gebauerwatches@gmail.com</a> with a screenshot &mdash; we&rsquo;ll help.</p>
-      </details>
-
-      <details class="qa">
-        <summary>Why &ldquo;Bauer&rdquo;?</summary>
-        <p>It&rsquo;s German for &ldquo;builder&rdquo; &mdash; and it&rsquo;s a piece of the founder&rsquo;s last name. <a href="/about.html">Read the story →</a></p>
-      </details>
     </section>
 
     <footer>
@@ -221,8 +75,6 @@
       <p class="footer-note">Questions? Email <a href="mailto:gebauerwatches@gmail.com">gebauerwatches@gmail.com</a>.</p>
     </footer>
   </main>
-
-  <script src="script.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
