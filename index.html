@@ -35,7 +35,7 @@
 
     <section class="personas">
       <p class="section-label">Three personas to pick from</p>
-      <p class="muted">Bauer asks during install. Each ships a curated config and 4 role-specific skills.</p>
+      <p class="muted">Bauer asks during install. Each ships a curated <strong>config</strong> (a small file telling the AI how to behave for your role) and 4 role-specific <strong>skills</strong> (mini-instructions for common tasks like writing emails or planning content).</p>
 
       <div class="persona-grid">
         <article class="persona">
@@ -142,7 +142,7 @@
         <pre><code>iwr https://bauerai.vercel.app/install-local.ps1 | iex</code></pre>
       </div>
 
-      <p class="muted small-note">The local installer auto-installs <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a>, downloads an open-source model (qwen2.5-coder:7b), installs Claude Code, and sets up the bridge between them. After install, run <code>ccr code</code> to start chatting with your local AI.</p>
+      <p class="muted small-note">The local installer auto-installs <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> (free software that runs AI models on your computer), downloads an open-source model (qwen2.5-coder:7b), installs Claude Code, and sets up a small bridge program that lets them talk to each other. After install, run <code>ccr code</code> in your terminal to start chatting with your local AI.</p>
     </section>
 
     <section class="prereqs">
@@ -163,61 +163,62 @@
 
     <section class="faq">
       <p class="section-label">Common questions</p>
+      <p class="muted faq-hint">Click any question to expand the answer.</p>
 
-      <div class="qa">
-        <h3>What does this actually install?</h3>
-        <p>Bauer drops a curated config file (a <code>CLAUDE.md</code>) and 4 role-specific skills into your computer&rsquo;s AI settings. The config tunes the AI&rsquo;s tone and defaults for your role. Three of the skills cover the 80% of tasks you&rsquo;ll actually do, plus a <code>build-agent</code> skill that walks you through designing custom agents in plain English.</p>
-      </div>
+      <details class="qa" open>
+        <summary>What does this actually install?</summary>
+        <p>Bauer drops a curated <strong>config file</strong> (named <code>CLAUDE.md</code> &mdash; it tells the AI how to behave for your role) and 4 role-specific <strong>skills</strong> (small instruction files for common tasks) into your computer&rsquo;s AI settings. Three skills cover the 80% of tasks you&rsquo;ll actually do, plus a <code>build-agent</code> skill that walks you through designing custom AI agents in plain English.</p>
+      </details>
 
-      <div class="qa">
-        <h3>How is this different from setting up AI yourself?</h3>
-        <p>By default, when you install the AI tool, it comes with no config and no skills &mdash; you&rsquo;re starting with a blank assistant that doesn&rsquo;t know who you are or how you work. Bauer drops in the config you&rsquo;d otherwise spend hours figuring out, and gives you a guided agent builder so you can extend it without learning the underlying file format.</p>
-      </div>
+      <details class="qa">
+        <summary>How is this different from setting up AI yourself?</summary>
+        <p>By default, when you install the AI tool yourself, it comes with no config and no skills &mdash; you&rsquo;re starting with a blank assistant that doesn&rsquo;t know who you are or how you work. Bauer drops in the config you&rsquo;d otherwise spend hours figuring out, and gives you a guided agent builder so you can extend it without learning the underlying file format.</p>
+      </details>
 
-      <div class="qa">
-        <h3>Can I use open-source models instead of Claude?</h3>
-        <p>Yes &mdash; there&rsquo;s a separate one-command installer (<a href="#install-local">see above</a>) that auto-installs <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a>, downloads a local model, installs Claude Code, and sets up the bridge between them. Same persona/skills experience, just slower and free. The <code>build-agent</code> skill also asks about model choice when you design new agents.</p>
-      </div>
+      <details class="qa">
+        <summary>Can I use open-source models instead of Claude?</summary>
+        <p>Yes &mdash; there&rsquo;s a separate one-command installer (<a href="#install-local">see above</a>) that auto-installs <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a>, downloads a local AI model, installs Claude Code, and sets up the bridge between them. Same persona / skills experience, just slower and free. The <code>build-agent</code> skill also asks about model choice when you design new agents.</p>
+      </details>
 
-      <div class="qa">
-        <h3>What AI does Bauer use by default?</h3>
-        <p>Right now, Anthropic&rsquo;s Claude (via the terminal version of Claude Code, under the hood). We may add more options based on what people actually want.</p>
-      </div>
+      <details class="qa">
+        <summary>What AI does Bauer use by default?</summary>
+        <p>Right now, Anthropic&rsquo;s Claude (via the terminal version called Claude Code, running under the hood). We may add more options based on what people actually want.</p>
+      </details>
 
-      <div class="qa">
-        <h3>I already have a <code>CLAUDE.md</code>. Will Bauer overwrite it?</h3>
+      <details class="qa">
+        <summary>I already have a <code>CLAUDE.md</code>. Will Bauer overwrite it?</summary>
         <p>No. We back up your existing <code>CLAUDE.md</code> to <code>CLAUDE.md.before-bauer.[timestamp]</code> before writing the new one. Same for any skill folders that collide. Nothing is lost.</p>
-      </div>
+      </details>
 
-      <div class="qa">
-        <h3>How do I uninstall?</h3>
+      <details class="qa">
+        <summary>How do I uninstall?</summary>
         <p>Delete <code>~/.claude/CLAUDE.md</code> and the relevant <code>~/.claude/skills/</code> subfolders (or restore your backups). The underlying AI tool stays installed; you can always run it with no config and it works fine.</p>
-      </div>
+      </details>
 
-      <div class="qa">
-        <h3>Is my data safe?</h3>
-        <p>Same as the default AI install &mdash; the AI only reads files you explicitly ask it to. Bauer doesn&rsquo;t add any data collection. The configs live entirely on your computer. With the open-source path, nothing leaves your machine at all.</p>
-      </div>
+      <details class="qa">
+        <summary>Is my data safe?</summary>
+        <p>Same as the default AI install &mdash; the AI only reads files you explicitly ask it to. Bauer doesn&rsquo;t add any data collection. The configs live entirely on your computer. With the open-source local path, nothing leaves your machine at all.</p>
+      </details>
 
-      <div class="qa">
-        <h3>How much does it cost?</h3>
-        <p>Bauer itself is free and open source. To use the AI, either pay for Claude Pro ($20/mo &mdash; recommended) or set up an open-source local model (free, more setup). The free claude.ai tier alone won&rsquo;t be enough.</p>
-      </div>
+      <details class="qa">
+        <summary>How much does it cost?</summary>
+        <p>Bauer itself is free and open source. To use the AI, either pay for Claude Pro ($20/mo &mdash; recommended) or set up an open-source local model (free, more setup). The free claude.ai tier alone won&rsquo;t be enough for serious use.</p>
+      </details>
 
-      <div class="qa">
-        <h3>What if I get stuck during install?</h3>
-        <p>Email <a href="mailto:help@bauer.ai">help@bauer.ai</a> with a screenshot &mdash; we&rsquo;ll help.</p>
-      </div>
+      <details class="qa">
+        <summary>What if I get stuck during install?</summary>
+        <p>Email <a href="mailto:gebauerwatches@gmail.com">gebauerwatches@gmail.com</a> with a screenshot &mdash; we&rsquo;ll help.</p>
+      </details>
 
-      <div class="qa">
-        <h3>Why &ldquo;Bauer&rdquo;?</h3>
+      <details class="qa">
+        <summary>Why &ldquo;Bauer&rdquo;?</summary>
         <p>It&rsquo;s German for &ldquo;builder&rdquo; &mdash; and it&rsquo;s a piece of the founder&rsquo;s last name. <a href="/about.html">Read the story →</a></p>
-      </div>
+      </details>
     </section>
 
     <footer>
       <p>Free &middot; Open source &middot; <a href="https://github.com/gebauerwatches-svg/bauer" target="_blank" rel="noopener">View the code on GitHub</a></p>
-      <p class="footer-note">Questions? Email <a href="mailto:help@bauer.ai">help@bauer.ai</a>.</p>
+      <p class="footer-note">Questions? Email <a href="mailto:gebauerwatches@gmail.com">gebauerwatches@gmail.com</a>.</p>
     </footer>
   </main>
 
