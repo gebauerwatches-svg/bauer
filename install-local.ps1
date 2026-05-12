@@ -9,6 +9,31 @@ function Write-Say  { param([string]$msg) Write-Host "  $msg" }
 function Write-Ok   { param([string]$msg) Write-Host "  ✅  $msg" -ForegroundColor Green }
 function Write-Warn { param([string]$msg) Write-Host "  ⚠️   $msg" -ForegroundColor Yellow }
 
+# --- Helper: locale-safe Unix timestamp ---
+function Get-Stamp { [DateTimeOffset]::Now.ToUnixTimeSeconds() }
+
+# --- Helper: npm install -g with user-prefix fallback (admin-free) ---
+function Install-NpmGlobal {
+    param([string]$pkg)
+    & npm install -g $pkg 2>$null | Out-Null
+    if ($LASTEXITCODE -eq 0) { return $true }
+
+    $userPrefix = Join-Path $env:USERPROFILE ".npm-global"
+    if (-not (Test-Path $userPrefix)) {
+        New-Item -ItemType Directory -Force -Path $userPrefix | Out-Null
+    }
+    & npm config set prefix $userPrefix 2>$null | Out-Null
+    & npm install -g $pkg 2>$null | Out-Null
+    if ($LASTEXITCODE -eq 0) {
+        $env:PATH = "$userPrefix;$env:PATH"
+        Write-Warn "npm global directory was set to $userPrefix (system one wasn't writable)."
+        Write-Say "    Add this to your PowerShell profile for new terminals:"
+        Write-Say "        `$env:PATH = `"$userPrefix;`$env:PATH`""
+        return $true
+    }
+    return $false
+}
+
 # --- Welcome ---
 Write-Host ""
 Write-Say "🧱  Welcome to Bauer (open-source local edition)"
@@ -24,7 +49,7 @@ Write-Say "  • A bridge that connects Claude Code to Ollama"
 Write-Say "  • Your Bauer persona config + skills"
 Write-Host ""
 $ready = Read-Host "  Ready? (y/n)"
-if ($ready -notmatch "^[Yy]") { Write-Say "Bye!"; exit 0 }
+if ($ready -notmatch "^[Yy]") { Write-Say "Bye!"; return }
 Write-Host ""
 
 # --- Check Ollama ---
@@ -35,10 +60,10 @@ if (-not (Get-Command ollama -ErrorAction SilentlyContinue)) {
     Write-Say "    1. Visit:  https://ollama.com/download"
     Write-Say "    2. Download and run OllamaSetup.exe"
     Write-Say "    3. Re-run this Bauer script when done"
-    exit 1
+    return
 }
 
-# --- Start Ollama service (Windows: usually starts automatically) ---
+# --- Start Ollama service (Windows: usually starts automatically with the installer) ---
 if (-not (Get-Process -Name "ollama" -ErrorAction SilentlyContinue)) {
     Write-Say "▶️   Starting Ollama..."
     Start-Process -FilePath "ollama" -ArgumentList "serve" -WindowStyle Hidden
@@ -51,11 +76,10 @@ $modelBase = $model.Split(":")[0]
 $installed = & ollama list 2>$null | Out-String
 if ($installed -notmatch $modelBase) {
     Write-Say "⬇️   Downloading model ($model, ~4 GB) — this takes a few minutes the first time..."
-    try {
-        & ollama pull $model
-    } catch {
+    & ollama pull $model
+    if ($LASTEXITCODE -ne 0) {
         Write-Warn "Model download failed. Check your internet and try again."
-        exit 1
+        return
     }
     Write-Ok "Model ready"
     Write-Host ""
@@ -69,32 +93,29 @@ if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
     Write-Say "Download from:  https://nodejs.org/   (pick LTS)"
     Write-Host ""
     Write-Say "Once installed, re-run this script."
-    exit 1
+    return
 }
 
 # --- Install Claude Code ---
 if (-not (Get-Command claude -ErrorAction SilentlyContinue)) {
     Write-Say "📦  Installing Claude Code..."
-    try {
-        & npm install -g "@anthropic-ai/claude-code" 2>&1 | Out-Null
-    } catch {
-        Write-Warn "Install failed. Try running PowerShell as Administrator, or use:"
+    if (-not (Install-NpmGlobal "@anthropic-ai/claude-code")) {
+        Write-Warn "Install failed. Try a new PowerShell as Administrator, or manually:"
         Write-Say "    npm config set prefix `"$env:USERPROFILE\.npm-global`""
         Write-Say "    npm install -g @anthropic-ai/claude-code"
-        exit 1
+        return
     }
     Write-Ok "Claude Code installed"
     Write-Host ""
 }
 
-# --- Install bridge ---
+# --- Install the bridge ---
 if (-not (Get-Command ccr -ErrorAction SilentlyContinue)) {
     Write-Say "🔗  Installing the Ollama bridge (claude-code-router)..."
-    try {
-        & npm install -g "claude-code-router" 2>&1 | Out-Null
-    } catch {
+    if (-not (Install-NpmGlobal "claude-code-router")) {
         Write-Warn "Bridge install failed. Manual install:"
         Write-Say "    npm install -g claude-code-router"
+        Write-Say "Continuing — we'll set up the config; you can install the bridge later."
     }
     Write-Host ""
 }
@@ -167,11 +188,11 @@ while (-not $persona) {
 Write-Host ""
 Write-Say "⚡  Setting up the '$personaLabel' personality..."
 
-$skills = switch ($persona) {
-    "business-owner" { @("customer-message", "proposal-or-quote", "marketing-copy", "build-agent") }
-    "side-project"   { @("draft-content", "launch-copy", "scope-and-prioritize", "build-agent") }
-    "freelancer"     { @("client-update", "scope-and-estimate", "scope-creep-response", "build-agent") }
-}
+$skills = @(switch ($persona) {
+    "business-owner" { "customer-message"; "proposal-or-quote"; "marketing-copy"; "build-agent" }
+    "side-project"   { "draft-content"; "launch-copy"; "scope-and-prioritize"; "build-agent" }
+    "freelancer"     { "client-update"; "scope-and-estimate"; "scope-creep-response"; "build-agent" }
+})
 
 $claudeDir = Join-Path $env:USERPROFILE ".claude"
 $skillsDir = Join-Path $claudeDir "skills"
@@ -179,37 +200,41 @@ New-Item -ItemType Directory -Force -Path $skillsDir | Out-Null
 
 $claudeMd = Join-Path $claudeDir "CLAUDE.md"
 if (Test-Path $claudeMd) {
-    $stamp = [int][double]::Parse((Get-Date -UFormat %s))
+    $stamp = Get-Stamp
     Move-Item $claudeMd "$claudeMd.before-bauer.$stamp"
 }
 
-$rockyBase = if ($env:ROCKY_BASE) { $env:ROCKY_BASE } else { "https://bauerai.vercel.app" }
-$rockyLocal = $env:ROCKY_LOCAL
+$bauerBase  = if ($env:BAUER_BASE)  { $env:BAUER_BASE }  elseif ($env:ROCKY_BASE)  { $env:ROCKY_BASE }  else { "https://bauerai.vercel.app" }
+$bauerLocal = if ($env:BAUER_LOCAL) { $env:BAUER_LOCAL } else { $env:ROCKY_LOCAL }
 
 function Get-BauerFile {
     param([string]$rel, [string]$dest)
-    if ($rockyLocal) {
-        Copy-Item -Path (Join-Path $rockyLocal $rel) -Destination $dest -Force
+    if ($bauerLocal) {
+        Copy-Item -Path (Join-Path $bauerLocal $rel) -Destination $dest -Force
     } else {
         try {
-            Invoke-WebRequest -Uri "$rockyBase/$rel" -OutFile $dest -UseBasicParsing
+            Invoke-WebRequest -Uri "$bauerBase/$rel" -OutFile $dest -UseBasicParsing
         } catch {
             Write-Warn "Couldn't download $rel"
-            exit 1
+            throw
         }
     }
 }
 
-Get-BauerFile "personas/$persona/CLAUDE.md" $claudeMd
+try {
+    Get-BauerFile "personas/$persona/CLAUDE.md" $claudeMd
 
-foreach ($skill in $skills) {
-    $skillDir = Join-Path $skillsDir $skill
-    if (Test-Path $skillDir) {
-        $stamp = [int][double]::Parse((Get-Date -UFormat %s))
-        Move-Item $skillDir "$skillDir.before-bauer.$stamp"
+    foreach ($skill in $skills) {
+        $skillDir = Join-Path $skillsDir $skill
+        if (Test-Path $skillDir) {
+            $stamp = Get-Stamp
+            Move-Item $skillDir "$skillDir.before-bauer.$stamp"
+        }
+        New-Item -ItemType Directory -Force -Path $skillDir | Out-Null
+        Get-BauerFile "personas/$persona/skills/$skill/SKILL.md" (Join-Path $skillDir "SKILL.md")
     }
-    New-Item -ItemType Directory -Force -Path $skillDir | Out-Null
-    Get-BauerFile "personas/$persona/skills/$skill/SKILL.md" (Join-Path $skillDir "SKILL.md")
+} catch {
+    return
 }
 
 # --- Done ---
