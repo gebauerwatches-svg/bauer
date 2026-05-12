@@ -53,6 +53,19 @@
       </details>
 
       <details class="qa">
+        <summary>Can I use GPT or Gemini instead of Claude?</summary>
+        <p><strong>Not officially supported yet, but technically yes.</strong></p>
+        <p>Bauer&rsquo;s open-source install includes a small bridge program called <a href="https://github.com/fanzhang16/claude-code-router" target="_blank" rel="noopener"><code>claude-code-router</code></a> that translates Claude Code&rsquo;s API calls to other backends. We use it to route to a local Ollama model, but it can also route to <strong>OpenAI&rsquo;s GPT</strong> or <strong>Google&rsquo;s Gemini</strong> &mdash; you&rsquo;d edit your <code>~/.claude-code-router/config-router.json</code> to point at OpenAI or Google&rsquo;s endpoint with your API key.</p>
+        <p>A few honest caveats:</p>
+        <ul class="prereq-list">
+          <li>The personas were written for Claude&rsquo;s response style, so GPT/Gemini may feel slightly off until tuned.</li>
+          <li>Per-token API billing for GPT or Gemini gets expensive on heavy use &mdash; same gotcha as the Anthropic API.</li>
+          <li>We haven&rsquo;t tested either path, so it&rsquo;s at your own risk. See <a href="https://github.com/fanzhang16/claude-code-router" target="_blank" rel="noopener">claude-code-router&rsquo;s docs</a> for the config format.</li>
+        </ul>
+        <p>If you have GPT or Gemini and want this to be a first-class install path, <a href="mailto:gebauerwatches@gmail.com">email us</a> &mdash; if enough people ask, we&rsquo;ll add it.</p>
+      </details>
+
+      <details class="qa">
         <summary>How is this different from ChatGPT?</summary>
         <p>ChatGPT is a website you talk to in a browser. Bauer sets up an AI in your computer&rsquo;s terminal that can read your files, run commands, and act as an agent &mdash; not just chat. It&rsquo;s also configured for your specific role (small business owner, freelancer, etc.), not a generic assistant.</p>
       </details>
