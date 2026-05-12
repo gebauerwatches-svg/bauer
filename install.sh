@@ -55,6 +55,15 @@ say "    3) Freelancer/consultant  -  client updates, scoping, scope-creep respo
 blank
 
 persona=""
+persona_label=""
+
+# Non-interactive mode: BAUER_PERSONA env var can skip the prompt (used by CI)
+case "${BAUER_PERSONA:-}" in
+    1|business-owner) persona="business-owner"; persona_label="Small business owner" ;;
+    2|side-project)   persona="side-project";   persona_label="Side project runner" ;;
+    3|freelancer)     persona="freelancer";     persona_label="Freelancer/consultant" ;;
+esac
+
 while [ -z "$persona" ]; do
     read -r -p "  Pick a number (1, 2, or 3): " choice
     case "$choice" in

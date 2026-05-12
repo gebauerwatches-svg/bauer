@@ -82,6 +82,19 @@ Write-Host ""
 
 $persona = $null
 $personaLabel = $null
+
+# Non-interactive mode: BAUER_PERSONA env var can skip the prompt (used by CI)
+if ($env:BAUER_PERSONA) {
+    switch ($env:BAUER_PERSONA) {
+        "1" { $persona = "business-owner"; $personaLabel = "Small business owner" }
+        "2" { $persona = "side-project";   $personaLabel = "Side project runner" }
+        "3" { $persona = "freelancer";     $personaLabel = "Freelancer/consultant" }
+        "business-owner" { $persona = "business-owner"; $personaLabel = "Small business owner" }
+        "side-project"   { $persona = "side-project";   $personaLabel = "Side project runner" }
+        "freelancer"     { $persona = "freelancer";     $personaLabel = "Freelancer/consultant" }
+    }
+}
+
 while (-not $persona) {
     $choice = Read-Host "  Pick a number (1, 2, or 3)"
     switch ($choice) {

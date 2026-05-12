@@ -1,0 +1,97 @@
+name: Test install (Mac + Windows)
+
+# Runs the install scripts on real cloud-hosted machines to verify they
+# work end-to-end. Each PR and every push to main gets validated.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  # ---------- Windows: Claude path (the one we haven't been able to test) ----------
+  windows-claude:
+    name: Windows · Claude path
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Run install.ps1 (BAUER_LOCAL=repo, persona=business-owner)
+        shell: pwsh
+        env:
+          BAUER_LOCAL: ${{ github.workspace }}
+          BAUER_PERSONA: '1'
+        run: |
+          .\install.ps1
+
+      - name: Verify CLAUDE.md + 4 skills landed in ~/.claude
+        shell: pwsh
+        run: |
+          $claudeDir = Join-Path $env:USERPROFILE ".claude"
+          $errors = @()
+
+          $claudeMd = Join-Path $claudeDir "CLAUDE.md"
+          if (Test-Path $claudeMd) {
+            Write-Host "✓ CLAUDE.md exists ($($claudeMd))"
+          } else {
+            $errors += "CLAUDE.md missing at $claudeMd"
+          }
+
+          $expectedSkills = @('customer-message', 'proposal-or-quote', 'marketing-copy', 'build-agent')
+          foreach ($skill in $expectedSkills) {
+            $skillPath = Join-Path $claudeDir "skills\$skill\SKILL.md"
+            if (Test-Path $skillPath) {
+              Write-Host "✓ skill $skill exists"
+            } else {
+              $errors += "skill $skill missing"
+            }
+          }
+
+          if ($errors.Count -gt 0) {
+            Write-Host ""
+            Write-Error ("Install verification failed: " + ($errors -join '; '))
+            exit 1
+          }
+          Write-Host ""
+          Write-Host "Windows install verified end-to-end."
+
+  # ---------- macOS: same test for parity, so a future Mac regression is caught too ----------
+  mac-claude:
+    name: macOS · Claude path
+    runs-on: macos-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Run install.sh (BAUER_LOCAL=repo, persona=business-owner)
+        env:
+          BAUER_LOCAL: ${{ github.workspace }}
+          ROCKY_LOCAL: ${{ github.workspace }}
+          BAUER_PERSONA: '1'
+        run: |
+          bash install.sh
+
+      - name: Verify CLAUDE.md + 4 skills landed in ~/.claude
+        run: |
+          set -e
+          claude_dir="$HOME/.claude"
+          [ -f "$claude_dir/CLAUDE.md" ] || { echo "CLAUDE.md missing"; exit 1; }
+          for skill in customer-message proposal-or-quote marketing-copy build-agent; do
+            [ -f "$claude_dir/skills/$skill/SKILL.md" ] || { echo "skill $skill missing"; exit 1; }
+          done
+          echo "macOS install verified end-to-end."
