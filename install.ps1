@@ -175,7 +175,13 @@ Write-Say "    claude"
 Write-Host ""
 Write-Say "And press Enter."
 Write-Host ""
-Write-Say "First-time tip — try asking Claude something like..."
+Write-Say "🔐  First time? Claude will ask you to sign in. Inside the Claude chat, type:"
+Write-Host ""
+Write-Say "    /login"
+Write-Host ""
+Write-Say "and follow the prompts. Uses your existing claude.ai account."
+Write-Host ""
+Write-Say "Then try asking Claude something like..."
 switch ($persona) {
     "business-owner" { Write-Say "    `"Help me draft a follow-up email to a lead I haven't heard back from in two weeks.`"" }
     "side-project"   { Write-Say "    `"I have 3 hours this Saturday. What's the smallest useful thing I should ship?`"" }

@@ -136,7 +136,13 @@ say "    claude"
 blank
 say "And press Enter."
 blank
-say "First-time tip — try asking Claude something like..."
+say "🔐  First time? Claude will ask you to sign in. Inside the Claude chat, type:"
+blank
+say "    /login"
+blank
+say "and follow the prompts. Uses your existing claude.ai account."
+blank
+say "Then try asking Claude something like..."
 case "$persona" in
     business-owner)
         say "    \"Help me draft a follow-up email to a lead I haven't heard back from in two weeks.\"" ;;
