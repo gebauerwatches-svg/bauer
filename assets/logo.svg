@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- Bauer brick mark — 1024×1024, transparent background -->
+  <g transform="translate(123.5, 271.5)">
+    <rect x="0"   y="0"   width="370" height="222" rx="20" fill="#1c1c2e"/>
+    <rect x="407" y="0"   width="370" height="222" rx="20" fill="#1c1c2e"/>
+    <rect x="0"   y="259" width="148" height="222" rx="20" fill="#1c1c2e"/>
+    <rect x="185" y="259" width="370" height="222" rx="20" fill="#d97706"/>
+    <rect x="592" y="259" width="185" height="222" rx="20" fill="#1c1c2e"/>
+  </g>
+</svg>
